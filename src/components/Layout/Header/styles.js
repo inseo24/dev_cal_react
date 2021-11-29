@@ -1,11 +1,11 @@
-import styled, { css } from 'styled-components';
-import { Link } from 'react-router-dom';
+import styled, { css } from "styled-components";
+import { Link } from "react-router-dom";
 
-import { v, b } from '../../../styles/variables';
+import { v, b } from "../../../styles/variables";
 
-import { AiOutlineCalendar } from 'react-icons/ai';
-import { HiMenuAlt3 } from 'react-icons/hi';
-import { IoMdClose } from 'react-icons/io';
+import { AiOutlineCalendar } from "react-icons/ai";
+import { HiMenuAlt3 } from "react-icons/hi";
+import { IoMdClose } from "react-icons/io";
 
 const btnReset = css`
   cursor: pointer;
@@ -46,7 +46,6 @@ export const SHeader = styled.header`
   max-width: 1920px;
   display: flex;
   align-items: center;
-
   transition: 0.3s ease padding;
   padding: 0 ${v.mdSpacing};
   @media ${b.lg} {
@@ -85,7 +84,6 @@ export const SLogo = styled(AiOutlineCalendar)`
   display: block;
   width: 100%;
   height: 100%;
-
   /* animation: App-logo-spin infinite 5s linear;
   @keyframes App-logo-spin {
     from {
@@ -101,6 +99,14 @@ export const SLogo = styled(AiOutlineCalendar)`
 // nav
 
 // Right
+export const SLinkButton = styled(Link)`
+  text-decoration: none;
+  color: primary;
+  background: ${({ theme }) => theme.primary};
+  padding: calc(${v.smSpacing} - 2px) ${v.lgSpacing};
+  border-radius: ${v.borderRadius};
+`;
+
 export const SCTAButton = styled(Link)`
   text-decoration: none;
   color: primary;
@@ -108,6 +114,7 @@ export const SCTAButton = styled(Link)`
   padding: calc(${v.smSpacing} - 2px) ${v.lgSpacing};
   border-radius: ${v.borderRadius};
 `;
+
 export const SMenuToggleButton = styled.button`
   ${btnReset}
   width: 32px;
@@ -138,12 +145,10 @@ export const SMenu = styled.div`
   right: 0;
   bottom: 0;
   background: ${({ theme }) => theme.bg};
-
   width: 100vw;
   height: calc(100% - ${v.headerHeight});
   transition: 0.3s ease left;
   padding: ${v.lgSpacing};
-
   @media ${b.md} {
     display: none;
   }

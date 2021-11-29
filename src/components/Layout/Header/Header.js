@@ -1,12 +1,11 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
-import { uiActions } from '../../../app/slices/uiSlice';
-import Switch from './Switch';
+import React from "react";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { uiActions } from "../../../app/slices/uiSlice";
+import Switch from "./Switch";
 import {
   SCenter,
   SCloseIcon,
-  SCTAButton,
   SHeader,
   SHeaderFixed,
   SHeaderHeight,
@@ -18,8 +17,10 @@ import {
   SMenuToggleButton,
   SRight,
   Sbutton,
-} from './styles';
-import Nav from './Nav/Nav';
+  SLinkButton,
+} from "./styles";
+import Nav from "./Nav/Nav";
+import { Logout } from "../../Logout/Logout";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -50,7 +51,11 @@ const Header = () => {
             <Nav />
           </SCenter>
           <SRight>
-            <SCTAButton to="/login">Login</SCTAButton>
+            {localStorage.getItem("ACCESS_TOKEN") ? (
+              <SLinkButton onClick={Logout}>Logout</SLinkButton>
+            ) : (
+              <SLinkButton to="/login">Login</SLinkButton>
+            )}
             <Sbutton onClick={toggleThemeHandler}>
               <Switch />
             </Sbutton>

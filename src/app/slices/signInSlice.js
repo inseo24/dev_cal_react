@@ -1,42 +1,36 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createAsyncThunk } from "@reduxjs/toolkit";
 
-export const signIn = createAsyncThunk("/auth/signin", async (payload) => {
+export const signInAsync = createAsyncThunk("/auth/signin", async (payload) => {
+  let headers = new Headers({
+    "Content-Type": "application/json",
+  });
+
+  const accessToken = localStorage.getItem("ACCESS_TOKEN");
+  if (accessToken && accessToken != null) {
+    headers.append("Authorization", "Bearer" + accessToken);
+  }
+
   const response = await fetch(
     `${process.env.REACT_APP_API_BASE}/auth/signin`,
     {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: headers,
       body: JSON.stringify({
         email: payload.email,
         password: payload.password,
       }),
     }
   );
-  if (response.ok) {
-    const signIn = await response.json();
 
-    return { signIn };
+  if (response.ok) {
+    const signUp = await response.json();
+
+    if (signUp.token) {
+      localStorage.setItem("ACCESS_TOKEN", signUp.token);
+      alert("로그인 되었습니다.");
+      window.location.href = "/";
+    }
+
+    return { signUp };
   }
 });
-
-const signInSlice = createSlice({
-  name: "signIn",
-  initialState: {
-    status: null,
-  },
-  extraReducers: {
-    [signIn.pending]: (state, action) => {
-      state.status = "loading";
-    },
-    [signIn.fulfilled]: (state, action) => {
-      state.push(action.payload.signUp);
-    },
-    [signIn.rejected]: (state, action) => {
-      state.status = "failed";
-    },
-  },
-});
-
-export default signInSlice.reducer;

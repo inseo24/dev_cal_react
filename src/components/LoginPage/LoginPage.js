@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { SButton, SInput } from "./styles";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { signIn } from "../../app/slices/signInSlice";
+import { signInAsync } from "../../app/slices/signInSlice";
 
 const LoginPage = () => {
   const [email, setEmail] = useState();
@@ -13,8 +13,8 @@ const LoginPage = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     dispatch(
-      signIn({
-        username: email,
+      signInAsync({
+        email: email,
         password: password,
       })
     );
